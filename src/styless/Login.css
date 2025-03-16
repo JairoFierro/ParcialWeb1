@@ -15,14 +15,25 @@ body {
     text-align: center;
     width: 100%;
 }
+.container1{
+    margin: auto;
+    width: 540px;
+    height: 369px;
 
+}
 
+.container-form {
+    width: 786px;
+}
 
 .banner img {
-    width: 100%;
-    height: auto;
-    border-radius: 10px;
-    margin-bottom: 15px;
+    width: 1143px;
+    height: 311px;
+}
+
+.login-box {
+    width: 625px;
+    height: 369px; 
 }
 
 
@@ -39,6 +50,7 @@ h2 {
 
 
 .form-group {
+    justify-content: flex-end;
     display: flex;
     flex-direction: column;
     text-align: left;
@@ -48,18 +60,23 @@ h2 {
 
 label {
     font-weight: bold;
+    display: block;
+    text-align: left;
     margin-bottom: 5px;
+    font-size: 20px;
+    font-family: 'Inter', sans-serif; 
 }
+
 
 
 input {
     padding: 15px;
     border: 1px solid #ccc;
-    border-radius: 5px;
-    background-color: #e0e0e0;
-    width: 100%;
+    background-color: #D9D9D9;
+    width: 540px;
     font-size: 16px;
     height: 50px; 
+    margin-bottom: 5px;
 }
 
 
@@ -83,17 +100,28 @@ input {
 
 .btn.ingresar {
     background-color: #0033a0;
+    width: 253px;
+    height:53;
 }
 
 
 .btn.cancelar {
     background-color: #d9534f;
+    width: 253px;
+    height:53;
 }
 
 .error {
     color: red;
     font-size: 14px;
     margin-top: 10px;
+}
+
+.footer{
+    margin-top: 70px;
+    font-size: 18px;
+    white-space: nowrap;
+    text-align: center;
 }
 
 

@@ -1,99 +1,60 @@
-import { useState } from "react";
-import "bootstrap/dist/css/bootstrap.min.css";
+import { useState,useEffect  } from "react";
 import banner from "../img/login.png";
-import { Link } from "react-router-dom";
+import i18n from "../i18n/i18n";
+import { useTranslation } from "react-i18next";
 
 function Adopta() {
-    const robots = [
-        {
-            "id": 1,
-            "nombre": "Pedrito",
-            "modelo": "PR-001",
-            "empresaFabricante": "Robotico Corp",
-            "añoFabricacion": 2023,
-            "capacidadProcesamiento": "2.5 GHz",
-            "humor": "Como un perrito pequeño, siempre buscando atención y moviendo su 'cola' robótica",
-            "imagen": "https://github.com/fai-aher/T34-Wiki-Backup/blob/main/images/robot1.png"
-        },
-        {
-            "id": 2,
-            "nombre": "IronChef",
-            "modelo": "IC-3000",
-            "empresaFabricante": "RoboCocina Inc.",
-            "añoFabricacion": 2021,
-            "capacidadProcesamiento": "3.2 GHz",
-            "humor": "Fanático de la cocina, siempre bromeando con chistes de comida y recomendando recetas",
-            "imagen": "https://github.com/fai-aher/T34-Wiki-Backup/blob/main/images/robot2.png"
-        },
-        {
-            "id": 3,
-            "nombre": "Chispita",
-            "modelo": "LT-007",
-            "empresaFabricante": "SparkBots Ltd.",
-            "añoFabricacion": 2020,
-            "capacidadProcesamiento": "1.8 GHz",
-            "humor": "Alegre y juguetón, con comportamiento como un gatito curioso",
-            "imagen": "https://github.com/fai-aher/T34-Wiki-Backup/blob/main/images/robot3.png"
-        },
-        {
-            "id": 4,
-            "nombre": "SeñorCalculín",
-            "modelo": "MC-808",
-            "empresaFabricante": "Mathematrix Solutions",
-            "añoFabricacion": 2022,
-            "capacidadProcesamiento": "4.0 GHz",
-            "humor": "Serio pero sarcástico, con chistes de matemáticas",
-            "imagen": "https://github.com/fai-aher/T34-Wiki-Backup/blob/main/images/robot4.png"
-        },
-        {
-            "id": 5,
-            "nombre": "DoctoraBot",
-            "modelo": "HL-9000",
-            "empresaFabricante": "MediTech Industries",
-            "añoFabricacion": 2024,
-            "capacidadProcesamiento": "3.8 GHz",
-            "humor": "Doctora estricta con humor seco, siempre recordando que te laves las manos",
-            "imagen": "https://github.com/fai-aher/T34-Wiki-Backup/blob/main/images/robot5.png"
-        },
-        {
-            "id": 6,
-            "nombre": "ZumbaTron",
-            "modelo": "ZT-2025",
-            "empresaFabricante": "DanceTech Co.",
-            "añoFabricacion": 2025,
-            "capacidadProcesamiento": "2.9 GHz",
-            "humor": "Energético amante del baile, siempre motivando a moverse",
-            "imagen": "https://github.com/fai-aher/T34-Wiki-Backup/blob/main/images/robot6.png"
-        }
-      ];
+    const [robots, setRobots] = useState([]);
+    const [robotDetail, setRobotDetail] = useState(null);
+    const { t } = useTranslation();
+
+    useEffect(()=>{
+        const URL = "http://localhost:3001/robots";
+        fetch(URL)
+        .then(response => response.json())
+        .then(data => {
+            console.log(data)
+            setRobots(data)
+
+        });
+    }, []);
+
+    const handleRowClick = (robotId) => {
+        fetch(`http://localhost:3001/robots/`+robotId)
+            .then(response => response.json())
+            .then(data => {
+                setRobotDetail(data);
+            });
+    };
 
       return (
         <div >
-            <h1>Adopta un Robot con Robot Lovers!</h1>
+            <h1>{t("title")}</h1>
+
+            <hr class="linea"></hr>
+
             <div className="banner">
                     <img src={banner} alt="Login Banner"/>
             </div>
+
+            <hr class="linea"></hr>
+            <div className="row">
+            <div className="col-md-8" >
+
             <table class="table">
-            <thead class="thead-dark">
+            <thead class="table-dark">
                 <tr>
                 <th scope="col">ID</th>
-                <th scope="col">Nombre</th>
-                <th scope="col">Modelo</th>
-                <th scope="col">Empresa Fabricante</th>
+                <th scope="col">{t("table.name")}</th>
+                <th scope="col">{t("table.model")}</th>
+                <th scope="col">{t("table.manufacturer")}</th>
                 </tr>
             </thead>
             <tbody>
             {robots.map((robot) => (
-                        <tr key={robot.id}>
-                            <td>
-                            <Link to={`/robotDetail/${robot.id}`} style={{ textDecoration: "none", color: "black", fontWeight: "bold" }}>
-                            {robot.id}
-                                </Link>
-                            </td>
-                            <td>                                  
-                                {robot.nombre}
-
-                            </td>
+                        <tr key={robot.id} onClick={() => handleRowClick(robot.id)} style={{ cursor: "pointer" }}>
+                            <td> {robot.id} </td>
+                            <td>  {robot.nombre}</td>
                             <td>{robot.modelo}</td>
                             <td>{robot.empresaFabricante}</td>
                         </tr>
@@ -101,7 +62,45 @@ function Adopta() {
             </tbody>
 
             </table>
+            </div>
+        
+
+            <div className="col-md-4" >
+
+            {robotDetail && (
+            <div className="card lg p-3"  style={{ 
+                width: "370px", 
+                height: "470px", 
+                backgroundColor:"#D9D9D980",
+            }} >
+                <h3 className="card-title text-center ">{robotDetail.nombre}</h3>
+                {console.log(robotDetail.imagen)}
+              <img src={robotDetail.imagen.replace("blob/", "raw/")} class="card-img-top" alt="..."
+                  style={{ 
+                    width: "100%", 
+                    height: "200px", 
+                    objectFit: "contain", 
+                    display: "block"
+                }}  />
+            <div class="card-body">
+                <p><strong>➜ {t("details.year")}:</strong> {robotDetail.añoFabricacion}</p>
+                <p><strong>➜ {t("details.processingPower")}:</strong> {robotDetail.capacidadProcesamiento}</p>
+                <p><strong>➜ {t("details.mood")}:</strong> {robotDetail.humor}</p>
+            </div>
+            </div>
+            )}
+            </div>
+
+            </div>
+
+            
+
+            <p className="footer">
+            Contact us:+57 3102105253 - info@robot-lovers.com @robot-lovers
+            </p>
+            
         </div>
+        
     );
 
 }

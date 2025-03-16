@@ -1,0 +1,20 @@
+{
+    "title": "Adopta un Robot con Robot Lovers!",
+    "login": {
+      "title": "Inicio de sesión",
+      "username": "Nombre de usuario",
+      "password": "Contraseña",
+      "loginButton": "Ingresar",
+      "cancelButton": "Cancelar"
+    },
+    "table": {
+      "name": "Nombre",
+      "model": "Modelo",
+      "manufacturer": "Empresa Fabricante"
+    },
+    "details": {
+      "year": "Año de fabricación",
+      "processingPower": "Capacidad de Procesamiento",
+      "mood": "Humor"
+    }
+  }  

@@ -1,0 +1,21 @@
+{
+    "title": "Adopt a Robot with Robot Lovers!",
+    "login": {
+      "title": "Login",
+      "username": "Username",
+      "password": "Password",
+      "loginButton": "Login",
+      "cancelButton": "Cancel"
+    },
+    "table": {
+      "name": "Name",
+      "model": "Model",
+      "manufacturer": "Manufacturer"
+    },
+    "details": {
+      "year": "Year of manufacture",
+      "processingPower": "Processing Power",
+      "mood": "Mood"
+    }
+  }
+  
